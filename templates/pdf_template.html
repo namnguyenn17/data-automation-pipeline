@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        @page { size: A4; margin: 2cm; }
+        body { font-family: Arial, sans-serif; font-size: 11pt; color: #333; }
+        .header { background: #667eea; color: white; padding: 2rem; text-align: center; margin-bottom: 2rem; }
+        .header h1 { font-size: 24pt; margin-bottom: 0.5rem; }
+        .header h2 { font-size: 16pt; margin-bottom: 1rem; }
+        .section { margin-bottom: 2rem; page-break-inside: avoid; }
+        .section-header { background: #f8f9fa; padding: 1rem; border-bottom: 2px solid #007bff; }
+        .section-header h3 { color: #495057; font-size: 14pt; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .stat-card { background: #f8f9fa; padding: 1rem; border-left: 4px solid #007bff; }
+        .stat-value { font-size: 14pt; font-weight: bold; color: #007bff; }
+        .chart-container { text-align: center; margin: 1rem 0; }
+        .chart-container img { max-width: 100%; height: auto; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+        .data-table th, .data-table td { padding: 0.5rem; border-bottom: 1px solid #dee2e6; }
+        .data-table th { background-color: #f8f9fa; font-weight: 600; }
+        .positive { color: #28a745; font-weight: bold; }
+        .negative { color: #dc3545; font-weight: bold; }
+        .insights-list { list-style: none; }
+        .insights-list li { background: #e3f2fd; margin: 0.5rem 0; padding: 1rem; border-left: 4px solid #2196f3; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ title }}</h1>
+        <h2>{{ subtitle }}</h2>
+        <p>Generated: {{ generation_time }} | Analysis: {{ analysis_type }} | Symbols: {{ symbols | join(', ') }}</p>
+    </div>
+
+    <div class="section">
+        <div class="section-header"><h3>Executive Summary</h3></div>
+        <div class="stats-grid">
+            {% for symbol, stats in statistics.items() %}
+            <div class="stat-card">
+                <h4>{{ symbol }} Performance</h4>
+                <div class="stat-value {% if stats.daily_return > 0 %}positive{% else %}negative{% endif %}">
+                    {{ "%.2f"|format(stats.daily_return) }}%
+                </div>
+                <small>Daily Return</small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if key_insights %}
+    <div class="section">
+        <div class="section-header"><h3>Key Insights</h3></div>
+        <ul class="insights-list">
+            {% for insight in key_insights %}
+            <li>{{ insight }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="section">
+        <div class="section-header"><h3>Data Summary</h3></div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    {% for symbol in symbols %}
+                    <th>{{ symbol }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Latest Price</strong></td>
+                    {% for symbol in symbols %}
+                    <td>${{ "%.2f"|format(statistics[symbol].latest_price) }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><strong>Daily Return</strong></td>
+                    {% for symbol in symbols %}
+                    <td class="{% if statistics[symbol].daily_return > 0 %}positive{% else %}negative{% endif %}">
+                        {{ "%.2f"|format(statistics[symbol].daily_return) }}%
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><strong>Volatility</strong></td>
+                    {% for symbol in symbols %}
+                    <td>{{ "%.2f"|format(statistics[symbol].volatility) }}%</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 

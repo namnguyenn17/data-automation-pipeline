@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header h2 {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        
+        .section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .section-header h3 {
+            color: #495057;
+            font-size: 1.3rem;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .stat-card h4 {
+            color: #495057;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .chart-container {
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .insights-list {
+            list-style: none;
+        }
+        
+        .insights-list li {
+            background: #e3f2fd;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .data-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .data-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .positive {
+            color: #28a745;
+        }
+        
+        .negative {
+            color: #dc3545;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>{{ title }}</h1>
+            <h2>{{ subtitle }}</h2>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <strong>Generated:</strong> {{ generation_time }}
+                </div>
+                <div class="meta-item">
+                    <strong>Analysis Type:</strong> {{ analysis_type }}
+                </div>
+                <div class="meta-item">
+                    <strong>Symbols:</strong> {{ symbols | join(', ') }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <div class="section-header">
+                <h3>📊 Executive Summary</h3>
+            </div>
+            <div class="section-content">
+                <div class="stats-grid">
+                    {% for symbol, stats in statistics.items() %}
+                    <div class="stat-card">
+                        <h4>{{ symbol }} Performance</h4>
+                        <div class="stat-value {% if stats.daily_return > 0 %}positive{% else %}negative{% endif %}">
+                            {{ "%.2f"|format(stats.daily_return) }}%
+                        </div>
+                        <small>Daily Return</small>
+                    </div>
+                    <div class="stat-card">
+                        <h4>{{ symbol }} Volatility</h4>
+                        <div class="stat-value">
+                            {{ "%.2f"|format(stats.volatility) }}%
+                        </div>
+                        <small>30-Day Volatility</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Comparison Chart -->
+        <div class="section">
+            <div class="section-header">
+                <h3>📈 Price Comparison</h3>
+            </div>
+            <div class="section-content">
+                <div class="chart-container">
+                    {{ charts.price_comparison | safe }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Volume Analysis -->
+        <div class="section">
+            <div class="section-header">
+                <h3>📊 Volume Analysis</h3>
+            </div>
+            <div class="section-content">
+                <div class="chart-container">
+                    {{ charts.volume_analysis | safe }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Indicators -->
+        <div class="section">
+            <div class="section-header">
+                <h3>🔧 Technical Indicators</h3>
+            </div>
+            <div class="section-content">
+                <div class="chart-container">
+                    {{ charts.technical_indicators | safe }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Correlation Analysis -->
+        <div class="section">
+            <div class="section-header">
+                <h3>🔗 Correlation Analysis</h3>
+            </div>
+            <div class="section-content">
+                <div class="chart-container">
+                    {{ charts.correlation_heatmap | safe }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        {% if key_insights %}
+        <div class="section">
+            <div class="section-header">
+                <h3>💡 Key Insights</h3>
+            </div>
+            <div class="section-content">
+                <ul class="insights-list">
+                    {% for insight in key_insights %}
+                    <li>{{ insight }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Data Summary -->
+        <div class="section">
+            <div class="section-header">
+                <h3>📋 Data Summary</h3>
+            </div>
+            <div class="section-content">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            {% for symbol in symbols %}
+                            <th>{{ symbol }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Latest Price</strong></td>
+                            {% for symbol in symbols %}
+                            <td>${{ "%.2f"|format(statistics[symbol].latest_price) }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td><strong>Daily Return</strong></td>
+                            {% for symbol in symbols %}
+                            <td class="{% if statistics[symbol].daily_return > 0 %}positive{% else %}negative{% endif %}">
+                                {{ "%.2f"|format(statistics[symbol].daily_return) }}%
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td><strong>30-Day Volatility</strong></td>
+                            {% for symbol in symbols %}
+                            <td>{{ "%.2f"|format(statistics[symbol].volatility) }}%</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td><strong>Average Volume</strong></td>
+                            {% for symbol in symbols %}
+                            <td>{{ "{:,.0f}"|format(statistics[symbol].avg_volume) }}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Generated by Data Automation Pipeline | {{ generation_time }}</p>
+            <p>Data source: Alpha Vantage API</p>
+        </div>
+    </div>
+</body>
+</html> 

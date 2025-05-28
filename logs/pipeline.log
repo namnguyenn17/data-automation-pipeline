@@ -1,0 +1,251 @@
+2025-05-26 10:39:08,906 - data_automation_pipeline - INFO - Pipeline components initialized successfully
+2025-05-26 10:39:08,909 - data_automation_pipeline - INFO - ============================================================
+2025-05-26 10:39:08,909 - data_automation_pipeline - INFO - Starting Data Automation Pipeline
+2025-05-26 10:39:08,909 - data_automation_pipeline - INFO - ============================================================
+2025-05-26 10:39:08,909 - data_automation_pipeline - INFO - Validating configuration...
+2025-05-26 10:39:08,909 - data_automation_pipeline - ERROR - Pipeline failed: Invalid analysis type: comparative_analysis
+Traceback (most recent call last):
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/scripts/data_automation_pipeline/main.py", line 107, in run_pipeline
+    self._validate_configuration()
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/scripts/data_automation_pipeline/main.py", line 178, in _validate_configuration
+    raise ValueError(f"Invalid analysis type: {Config.ANALYSIS_TYPE}")
+ValueError: Invalid analysis type: comparative_analysis
+2025-05-27 10:59:44,248 - data_automation_pipeline - ERROR - Failed to initialize pipeline components: Invalid URL
+2025-05-27 11:01:02,410 - data_automation_pipeline - INFO - Pipeline components initialized successfully
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - Starting Data Automation Pipeline
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - Validating configuration...
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - Configuration validation completed
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - Processing symbols: AMD, NVDA, BYD, TSLA
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - Step 1: Data Acquisition
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - Acquiring data for 4 symbols...
+2025-05-27 11:01:02,413 - data_automation_pipeline - INFO - Fetching data for AMD from Yahoo Finance
+2025-05-27 11:01:03,995 - data_automation_pipeline - INFO - Saved raw data: data/raw/AMD_daily_20250527_110102.csv
+2025-05-27 11:01:03,995 - data_automation_pipeline - INFO - Fetching data for NVDA from Yahoo Finance
+2025-05-27 11:01:04,335 - data_automation_pipeline - INFO - Saved raw data: data/raw/NVDA_daily_20250527_110102.csv
+2025-05-27 11:01:04,335 - data_automation_pipeline - INFO - Fetching data for BYD from Yahoo Finance
+2025-05-27 11:01:04,646 - data_automation_pipeline - INFO - Saved raw data: data/raw/BYD_daily_20250527_110102.csv
+2025-05-27 11:01:04,646 - data_automation_pipeline - INFO - Fetching data for TSLA from Yahoo Finance
+2025-05-27 11:01:04,935 - data_automation_pipeline - INFO - Saved raw data: data/raw/TSLA_daily_20250527_110102.csv
+2025-05-27 11:01:04,935 - data_automation_pipeline - INFO - Data acquisition completed: 400 total records
+2025-05-27 11:01:04,935 - data_automation_pipeline - INFO - Step 2: Data Processing and Cleaning
+2025-05-27 11:01:04,935 - data_automation_pipeline - INFO - Processing and cleaning data...
+2025-05-27 11:01:04,941 - data_automation_pipeline - ERROR - Failed to process data for AMD: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:04,946 - data_automation_pipeline - ERROR - Failed to process data for NVDA: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:04,950 - data_automation_pipeline - ERROR - Failed to process data for BYD: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:04,953 - data_automation_pipeline - ERROR - Failed to process data for TSLA: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Created comparison dataset with 0 records
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Data processing completed: 0 total processed records
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Step 3: Data Storage (Supabase)
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Storing data in Supabase...
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Data storage completed: 0 total records stored
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Step 4: Analysis and Statistics Generation
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Performing statistical analysis...
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Analysis completed for 0 symbols
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Step 5: Report Generation
+2025-05-27 11:01:04,954 - data_automation_pipeline - INFO - Generating reports...
+2025-05-27 11:01:05,138 - data_automation_pipeline - INFO - Generated 1 report files:
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO -   - EXCEL: reports/stock_analysis_report_20250527_110104.xlsx
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - Pipeline completed successfully
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - PIPELINE EXECUTION SUMMARY
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - Status: SUCCESS
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - Symbols Processed: AMD, NVDA, BYD, TSLA
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - Records Processed: 0
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - Reports Generated: excel
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - Execution Time: 2.73 seconds
+2025-05-27 11:01:05,139 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:43,815 - data_automation_pipeline - INFO - Pipeline components initialized successfully
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - Starting Data Automation Pipeline
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - Validating configuration...
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - Configuration validation completed
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - Processing symbols: AMD, NVDA, BYD, TSLA
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - Step 1: Data Acquisition
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - Acquiring data for 4 symbols...
+2025-05-27 11:01:43,817 - data_automation_pipeline - INFO - Fetching data for AMD from Yahoo Finance
+2025-05-27 11:01:44,590 - data_automation_pipeline - INFO - Saved raw data: data/raw/AMD_daily_20250527_110143.csv
+2025-05-27 11:01:44,590 - data_automation_pipeline - INFO - Fetching data for NVDA from Yahoo Finance
+2025-05-27 11:01:44,788 - data_automation_pipeline - INFO - Saved raw data: data/raw/NVDA_daily_20250527_110143.csv
+2025-05-27 11:01:44,788 - data_automation_pipeline - INFO - Fetching data for BYD from Yahoo Finance
+2025-05-27 11:01:45,033 - data_automation_pipeline - INFO - Saved raw data: data/raw/BYD_daily_20250527_110143.csv
+2025-05-27 11:01:45,034 - data_automation_pipeline - INFO - Fetching data for TSLA from Yahoo Finance
+2025-05-27 11:01:45,172 - data_automation_pipeline - INFO - Saved raw data: data/raw/TSLA_daily_20250527_110143.csv
+2025-05-27 11:01:45,172 - data_automation_pipeline - INFO - Data acquisition completed: 400 total records
+2025-05-27 11:01:45,172 - data_automation_pipeline - INFO - Step 2: Data Processing and Cleaning
+2025-05-27 11:01:45,172 - data_automation_pipeline - INFO - Processing and cleaning data...
+2025-05-27 11:01:45,177 - data_automation_pipeline - ERROR - Failed to process data for AMD: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:45,184 - data_automation_pipeline - ERROR - Failed to process data for NVDA: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:45,188 - data_automation_pipeline - ERROR - Failed to process data for BYD: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:45,193 - data_automation_pipeline - ERROR - Failed to process data for TSLA: type object 'Config' has no attribute 'TECHNICAL_INDICATORS'
+2025-05-27 11:01:45,193 - data_automation_pipeline - INFO - Created comparison dataset with 0 records
+2025-05-27 11:01:45,193 - data_automation_pipeline - INFO - Data processing completed: 0 total processed records
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Step 3: Data Storage (Supabase)
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Storing data in Supabase...
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Data storage completed: 0 total records stored
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Step 4: Analysis and Statistics Generation
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Performing statistical analysis...
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Analysis completed for 0 symbols
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Step 5: Report Generation
+2025-05-27 11:01:45,194 - data_automation_pipeline - INFO - Generating reports...
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - Generated 1 report files:
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO -   - EXCEL: reports/stock_analysis_report_20250527_110145.xlsx
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - Pipeline completed successfully
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - PIPELINE EXECUTION SUMMARY
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - Status: SUCCESS
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - Symbols Processed: AMD, NVDA, BYD, TSLA
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - Records Processed: 0
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - Reports Generated: excel
+2025-05-27 11:01:45,383 - data_automation_pipeline - INFO - Execution Time: 1.57 seconds
+2025-05-27 11:01:45,384 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:27:48,934 - data_automation_pipeline - INFO - Pipeline components initialized successfully
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - Starting Data Automation Pipeline
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - Validating configuration...
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - Configuration validation completed
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - Processing symbols: AMD, NVDA, BYD, TSLA
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - Step 1: Data Acquisition
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - Acquiring data for 4 symbols...
+2025-05-27 11:27:48,938 - data_automation_pipeline - INFO - Fetching data for AMD from Yahoo Finance
+2025-05-27 11:27:50,285 - data_automation_pipeline - INFO - Saved raw data: data/raw/AMD_daily_20250527_112748.csv
+2025-05-27 11:27:50,285 - data_automation_pipeline - INFO - Fetching data for NVDA from Yahoo Finance
+2025-05-27 11:27:50,548 - data_automation_pipeline - INFO - Saved raw data: data/raw/NVDA_daily_20250527_112748.csv
+2025-05-27 11:27:50,548 - data_automation_pipeline - INFO - Fetching data for BYD from Yahoo Finance
+2025-05-27 11:27:50,820 - data_automation_pipeline - INFO - Saved raw data: data/raw/BYD_daily_20250527_112748.csv
+2025-05-27 11:27:50,820 - data_automation_pipeline - INFO - Fetching data for TSLA from Yahoo Finance
+2025-05-27 11:27:51,146 - data_automation_pipeline - INFO - Saved raw data: data/raw/TSLA_daily_20250527_112748.csv
+2025-05-27 11:27:51,146 - data_automation_pipeline - INFO - Data acquisition completed: 400 total records
+2025-05-27 11:27:51,146 - data_automation_pipeline - INFO - Step 2: Data Processing and Cleaning
+2025-05-27 11:27:51,146 - data_automation_pipeline - INFO - Processing and cleaning data...
+2025-05-27 11:27:51,151 - data_automation_pipeline - INFO - Processed 100 records for AMD
+2025-05-27 11:27:51,156 - data_automation_pipeline - INFO - Processed 100 records for NVDA
+2025-05-27 11:27:51,203 - data_automation_pipeline - INFO - Processed 100 records for BYD
+2025-05-27 11:27:51,209 - data_automation_pipeline - INFO - Processed 100 records for TSLA
+2025-05-27 11:27:51,210 - data_automation_pipeline - INFO - Created comparison dataset with 100 records
+2025-05-27 11:27:51,211 - data_automation_pipeline - INFO - Data processing completed: 400 total processed records
+2025-05-27 11:27:51,211 - data_automation_pipeline - INFO - Step 3: Data Storage (Supabase)
+2025-05-27 11:27:51,211 - data_automation_pipeline - INFO - Storing data in Supabase...
+2025-05-27 11:27:51,237 - data_automation_pipeline - INFO - Data storage completed: 0 total records stored
+2025-05-27 11:27:51,237 - data_automation_pipeline - INFO - Step 4: Analysis and Statistics Generation
+2025-05-27 11:27:51,241 - data_automation_pipeline - INFO - Performing statistical analysis...
+2025-05-27 11:27:51,259 - data_automation_pipeline - INFO - Analysis completed for 4 symbols
+2025-05-27 11:27:51,259 - data_automation_pipeline - INFO - Step 5: Report Generation
+2025-05-27 11:27:51,259 - data_automation_pipeline - INFO - Generating reports...
+2025-05-27 11:27:51,751 - data_automation_pipeline - INFO - Generated 2 report files:
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO -   - HTML: reports/stock_analysis_report_20250527_112751.html
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO -   - EXCEL: reports/stock_analysis_report_20250527_112751.xlsx
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - Pipeline completed successfully
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - PIPELINE EXECUTION SUMMARY
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - Status: SUCCESS
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - Symbols Processed: AMD, NVDA, BYD, TSLA
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - Records Processed: 500
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - Reports Generated: html, excel
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - Execution Time: 2.82 seconds
+2025-05-27 11:27:51,753 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:28:11,168 - data_automation_pipeline - INFO - Pipeline components initialized successfully
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - Starting Data Automation Pipeline
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - Validating configuration...
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - Configuration validation completed
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - Processing symbols: AMD, NVDA, BYD, TSLA
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - Step 1: Data Acquisition
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - Acquiring data for 4 symbols...
+2025-05-27 11:28:11,172 - data_automation_pipeline - INFO - Fetching data for AMD from Yahoo Finance
+2025-05-27 11:28:11,920 - data_automation_pipeline - INFO - Saved raw data: data/raw/AMD_daily_20250527_112811.csv
+2025-05-27 11:28:11,920 - data_automation_pipeline - INFO - Fetching data for NVDA from Yahoo Finance
+2025-05-27 11:28:12,292 - data_automation_pipeline - INFO - Saved raw data: data/raw/NVDA_daily_20250527_112811.csv
+2025-05-27 11:28:12,292 - data_automation_pipeline - INFO - Fetching data for BYD from Yahoo Finance
+2025-05-27 11:28:12,471 - data_automation_pipeline - INFO - Saved raw data: data/raw/BYD_daily_20250527_112811.csv
+2025-05-27 11:28:12,471 - data_automation_pipeline - INFO - Fetching data for TSLA from Yahoo Finance
+2025-05-27 11:28:12,632 - data_automation_pipeline - INFO - Saved raw data: data/raw/TSLA_daily_20250527_112811.csv
+2025-05-27 11:28:12,632 - data_automation_pipeline - INFO - Data acquisition completed: 400 total records
+2025-05-27 11:28:12,632 - data_automation_pipeline - INFO - Step 2: Data Processing and Cleaning
+2025-05-27 11:28:12,632 - data_automation_pipeline - INFO - Processing and cleaning data...
+2025-05-27 11:28:12,643 - data_automation_pipeline - INFO - Processed 100 records for AMD
+2025-05-27 11:28:12,650 - data_automation_pipeline - INFO - Processed 100 records for NVDA
+2025-05-27 11:28:12,692 - data_automation_pipeline - INFO - Processed 100 records for BYD
+2025-05-27 11:28:12,697 - data_automation_pipeline - INFO - Processed 100 records for TSLA
+2025-05-27 11:28:12,698 - data_automation_pipeline - INFO - Created comparison dataset with 100 records
+2025-05-27 11:28:12,698 - data_automation_pipeline - INFO - Data processing completed: 400 total processed records
+2025-05-27 11:28:12,699 - data_automation_pipeline - INFO - Step 3: Data Storage (Supabase)
+2025-05-27 11:28:12,699 - data_automation_pipeline - INFO - Storing data in Supabase...
+2025-05-27 11:28:12,725 - data_automation_pipeline - INFO - Data storage completed: 0 total records stored
+2025-05-27 11:28:12,725 - data_automation_pipeline - INFO - Step 4: Analysis and Statistics Generation
+2025-05-27 11:28:12,725 - data_automation_pipeline - INFO - Performing statistical analysis...
+2025-05-27 11:28:12,726 - data_automation_pipeline - INFO - Analysis completed for 4 symbols
+2025-05-27 11:28:12,726 - data_automation_pipeline - INFO - Step 5: Report Generation
+2025-05-27 11:28:12,726 - data_automation_pipeline - INFO - Generating reports...
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - Generated 2 report files:
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO -   - HTML: reports/stock_analysis_report_20250527_112812.html
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO -   - EXCEL: reports/stock_analysis_report_20250527_112812.xlsx
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - Pipeline completed successfully
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - PIPELINE EXECUTION SUMMARY
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - Status: SUCCESS
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - Symbols Processed: AMD, NVDA, BYD, TSLA
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - Records Processed: 500
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - Reports Generated: html, excel
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - Execution Time: 1.82 seconds
+2025-05-27 11:28:12,990 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 14:55:55,856 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-27 14:59:48,571 - data_automation_pipeline - WARNING - Error calculating margins for TLSA: float division by zero
+2025-05-27 15:05:13,847 - data_automation_pipeline - INFO - Pipeline components initialized successfully
+2025-05-27 15:05:13,849 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 15:05:13,849 - data_automation_pipeline - INFO - Starting Data Automation Pipeline
+2025-05-27 15:05:13,849 - data_automation_pipeline - INFO - ============================================================
+2025-05-27 15:05:13,849 - data_automation_pipeline - INFO - Validating configuration...
+2025-05-27 15:05:13,850 - data_automation_pipeline - ERROR - Pipeline failed: 'supabase_url_present'
+Traceback (most recent call last):
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/scripts/main.py", line 105, in run_pipeline
+    self._validate_configuration()
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/scripts/main.py", line 163, in _validate_configuration
+    if not validation['supabase_url_present']:
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'supabase_url_present'
+2025-05-27 15:26:03,291 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 09:13:13,420 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 09:35:06,276 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 09:35:06,655 - data_automation_pipeline - WARNING - OPENAI_API_KEY not found in environment variables
+2025-05-28 10:22:10,993 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 10:22:11,495 - data_automation_pipeline - INFO - OpenAI client initialized successfully
+2025-05-28 10:27:31,107 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 10:27:59,017 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 10:27:59,510 - data_automation_pipeline - INFO - OpenAI client initialized successfully
+2025-05-28 10:28:43,764 - data_automation_pipeline - ERROR - PDF generation error: "Style 'Caption' not found in stylesheet"
+Traceback (most recent call last):
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/.venv/lib/python3.11/site-packages/reportlab/lib/styles.py", line 230, in __getitem__
+    return self.byAlias[key]
+           ~~~~~~~~~~~~^^^^^
+KeyError: 'Caption'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/.venv/lib/python3.11/site-packages/reportlab/lib/styles.py", line 233, in __getitem__
+    return self.byName[key]
+           ~~~~~~~~~~~^^^^^
+KeyError: 'Caption'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/dashboard.py", line 585, in generate_ai_analysis_pdf
+    story.append(Paragraph(metadata, styles['Caption']))
+                                     ~~~~~~^^^^^^^^^^^
+  File "/Users/namnguyen/Workspace/Dev/Personal/data-automation-pipeline/.venv/lib/python3.11/site-packages/reportlab/lib/styles.py", line 235, in __getitem__
+    raise KeyError("Style '%s' not found in stylesheet" % key)
+KeyError: "Style 'Caption' not found in stylesheet"
+2025-05-28 10:31:55,010 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 10:32:26,938 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 10:34:57,236 - data_automation_pipeline - INFO - Dashboard logging configured.
+2025-05-28 10:34:57,603 - data_automation_pipeline - INFO - OpenAI client initialized successfully
