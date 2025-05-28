@@ -1,0 +1,50 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Data Automation Pipeline - Project Overview
+
+## 🎯 Project Purpose
+This is a comprehensive stock analysis and data automation pipeline that provides:
+- **Technical Analysis**: 15+ indicators including SMA, EMA, RSI, MACD, Bollinger Bands
+- **Financial Analysis**: Income statements, balance sheets, cash flow analysis
+- **AI-Powered Investment Analysis**: Long-term investment recommendations (6+ months horizon)
+- **Interactive Dashboard**: Streamlit-based web interface
+- **Automated Reports**: PDF and Excel export capabilities
+
+## 🏗️ Architecture Overview
+
+### Main Entry Points
+- **Dashboard**: [dashboard.py](mdc:dashboard.py) - Main Streamlit application
+- **Pipeline Runner**: [run_dashboard.py](mdc:run_dashboard.py) - Alternative entry point
+
+### Core Components
+- **Configuration**: [scripts/config.py](mdc:scripts/config.py) - Central configuration management
+- **Data Client**: [scripts/api_client.py](mdc:scripts/api_client.py) - Yahoo Finance API integration
+- **Data Processing**: [scripts/data_processor.py](mdc:scripts/data_processor.py) - Technical indicators and data cleaning
+- **AI Analysis**: [scripts/ai_analyzer.py](mdc:scripts/ai_analyzer.py) - OpenAI-powered investment analysis
+- **Report Generation**: [scripts/report_generator.py](mdc:scripts/report_generator.py) - PDF/Excel report creation
+
+### Data Flow
+1. **Data Acquisition** → Yahoo Finance API via [scripts/api_client.py](mdc:scripts/api_client.py)
+2. **Data Processing** → Technical indicators via [scripts/data_processor.py](mdc:scripts/data_processor.py)
+3. **AI Analysis** → Investment insights via [scripts/ai_analyzer.py](mdc:scripts/ai_analyzer.py)
+4. **Visualization** → Interactive charts in [dashboard.py](mdc:dashboard.py)
+5. **Export** → PDF/Excel reports via [scripts/report_generator.py](mdc:scripts/report_generator.py)
+
+## 📁 Directory Structure
+- `scripts/` - Core pipeline modules
+- `data/raw/` - Raw data storage
+- `data/processed/` - Processed data storage
+- `reports/` - Generated reports
+- `logs/` - Application logs
+- `templates/` - Report templates
+
+## 🔧 Key Technologies
+- **Data Source**: Yahoo Finance (yfinance)
+- **AI**: OpenAI GPT-4 for investment analysis
+- **Frontend**: Streamlit for interactive dashboard
+- **Charts**: Plotly for interactive visualizations
+- **Reports**: ReportLab for PDF generation, openpyxl for Excel
+- **Package Management**: UV for dependency management

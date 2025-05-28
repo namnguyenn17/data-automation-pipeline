@@ -1,0 +1,71 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Dashboard Components Guide
+
+## 📊 Main Dashboard Structure
+The [dashboard.py](mdc:dashboard.py) file contains the main Streamlit application with 6 primary tabs:
+
+### Tab 1: Technical Analysis (📈)
+- **Location**: Lines 700-800 in [dashboard.py](mdc:dashboard.py)
+- **Function**: `create_advanced_price_chart()` - Lines 150-250
+- **Features**: Candlestick charts, moving averages, RSI, MACD, Bollinger Bands
+- **Data Source**: `get_comprehensive_stock_data()` function
+
+### Tab 2: Financial Analysis (💰)
+- **Location**: Lines 800-950 in [dashboard.py](mdc:dashboard.py)
+- **Function**: `create_financial_analysis_dashboard()` - Lines 250-350
+- **Features**: P/E ratios, financial statements, profitability metrics
+- **Data Source**: `get_financial_statements()` function
+
+### Tab 3: Peer Comparison (🔍)
+- **Location**: Lines 950-1100 in [dashboard.py](mdc:dashboard.py)
+- **Features**: Normalized performance comparison, correlation analysis
+- **Requirements**: Minimum 2 stocks selected
+
+### Tab 4: Risk Analysis (⚠️)
+- **Location**: Lines 1100-1200 in [dashboard.py](mdc:dashboard.py)
+- **Features**: VaR calculations, volatility metrics, drawdown analysis
+- **Auto-loads data**: Independent of other tabs
+
+### Tab 5: AI Analysis (🤖)
+- **Location**: Lines 1200-1400 in [dashboard.py](mdc:dashboard.py)
+- **Components**: 
+  - Individual stock analysis with BUY/HOLD/SELL recommendations
+  - Comparative portfolio analysis with allocation suggestions
+  - PDF report generation
+- **Dependencies**: [scripts/ai_analyzer.py](mdc:scripts/ai_analyzer.py)
+
+### Tab 6: Data Export (💾)
+- **Location**: Lines 1400-1555 in [dashboard.py](mdc:dashboard.py)
+- **Features**: CSV, Excel, JSON export options
+- **Report Generation**: Comprehensive PDF reports
+
+## 🔧 Key Helper Functions
+
+### Data Loading Functions
+- `get_comprehensive_stock_data()` - Lines 100-130
+- `get_financial_statements()` - Lines 130-150
+- Both use `@st.cache_data` for performance
+
+### Chart Creation Functions
+- `create_advanced_price_chart()` - Technical analysis charts
+- `create_financial_trends_chart()` - Financial metrics visualization
+- `create_financial_analysis_dashboard()` - Financial overview
+
+### PDF Generation Functions
+- `generate_ai_analysis_pdf()` - Individual stock analysis PDFs
+- `generate_comparative_analysis_pdf()` - Portfolio comparison PDFs
+
+## 🎨 Styling & UI
+- **Custom CSS**: Lines 30-60 in [dashboard.py](mdc:dashboard.py)
+- **Color Schemes**: Gradient headers, metric cards with shadows
+- **Responsive Design**: Column layouts adapt to content
+
+## 🔄 Session State Management
+Key session state variables:
+- `st.session_state.processed_data` - Technical analysis data
+- `st.session_state.financial_data` - Financial statements
+- `st.session_state.ai_analysis` - AI analysis results

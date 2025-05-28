@@ -1,0 +1,151 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Troubleshooting & Common Fixes
+
+## 🔧 Recently Fixed Issues
+
+### Dashboard Tab Issues (RESOLVED)
+
+#### Peer Comparison Tab Not Showing Content
+- **Problem**: Tab showed no content when fewer than 2 stocks selected
+- **Root Cause**: Condition `if "Peer Comparison" in analysis_options and len(symbols) > 1`
+- **Fix**: Modified condition to show helpful guidance when <2 stocks selected
+- **Location**: Lines 950-1100 in [dashboard.py](mdc:dashboard.py)
+
+#### Risk Analysis Tab Not Working Independently
+- **Problem**: Required visiting Technical Analysis tab first to populate data
+- **Root Cause**: Data only stored in `st.session_state.processed_data` from Technical Analysis
+- **Fix**: Added automatic data loading when symbol not in session state
+- **Location**: Lines 1100-1200 in [dashboard.py](mdc:dashboard.py)
+
+### AI Analysis Issues (RESOLVED)
+
+#### Nested Expander Error
+- **Problem**: Streamlit error "Expanders may not be nested inside other expanders"
+- **Root Cause**: Using expander inside another expander for detailed analysis
+- **Fix**: Replaced nested expander with tabs for detailed sections
+- **Location**: AI Analysis tab in [dashboard.py](mdc:dashboard.py)
+
+#### PDF Generation KeyError
+- **Problem**: `KeyError: "Style 'Caption' not found"` in ReportLab
+- **Root Cause**: Using undefined 'Caption' style in PDF generation
+- **Fix**: Created custom `caption_style` using ParagraphStyle
+- **Location**: `generate_ai_analysis_pdf()` and `generate_comparative_analysis_pdf()` functions
+
+### Import and Initialization Issues (RESOLVED)
+
+#### AI Analyzer Import Error
+- **Problem**: Failed to import AIStockAnalyzer in dashboard
+- **Root Cause**: Missing AI analyzer module
+- **Fix**: Created [scripts/ai_analyzer.py](mdc:scripts/ai_analyzer.py) with proper OpenAI integration
+- **Dependencies**: Added `openai>=1.0.0` to [requirements.txt](mdc:requirements.txt)
+
+#### Component Initialization Failures
+- **Problem**: Pipeline components failing to initialize
+- **Root Cause**: Missing error handling in component initialization
+- **Fix**: Added try-catch blocks and graceful error handling
+- **Location**: `init_pipeline_components()` function in [dashboard.py](mdc:dashboard.py)
+
+## 🚨 Common Issues & Solutions
+
+### Environment Setup Issues
+
+#### Missing OpenAI API Key
+- **Symptoms**: AI Analysis shows "requires OpenAI API key" warning
+- **Solution**: Set environment variable `export OPENAI_API_KEY=your_key_here`
+- **Validation**: Check with `ai_analyzer.is_available()` method
+
+#### Missing Dependencies
+- **Symptoms**: Import errors for reportlab, openai, etc.
+- **Solution**: Install missing packages: `pip install -r requirements.txt`
+- **Check**: Verify virtual environment is activated
+
+### Data Loading Issues
+
+#### Yahoo Finance API Errors
+- **Symptoms**: "Could not load data for symbol" errors
+- **Causes**: Invalid symbols, network issues, API rate limits
+- **Solutions**: 
+  - Verify symbol exists and is correctly formatted
+  - Check internet connection
+  - Wait and retry if rate limited
+
+#### Empty DataFrames
+- **Symptoms**: Charts not displaying, analysis failing
+- **Causes**: Insufficient data, delisted stocks, weekend/holiday data
+- **Solutions**:
+  - Try different time periods
+  - Verify stock is actively traded
+  - Check for data availability
+
+### Performance Issues
+
+#### Slow Dashboard Loading
+- **Symptoms**: Long loading times, timeouts
+- **Solutions**:
+  - Reduce number of selected stocks
+  - Use shorter time periods
+  - Clear Streamlit cache: `st.cache_data.clear()`
+
+#### Memory Issues
+- **Symptoms**: Dashboard crashes, out of memory errors
+- **Solutions**:
+  - Limit concurrent analyses
+  - Restart dashboard periodically
+  - Monitor system resources
+
+### UI/UX Issues
+
+#### Charts Not Displaying
+- **Symptoms**: Empty chart areas, Plotly errors
+- **Solutions**:
+  - Check data availability
+  - Verify Plotly installation
+  - Clear browser cache
+
+#### Session State Issues
+- **Symptoms**: Data not persisting between tabs
+- **Solutions**:
+  - Check session state keys
+  - Verify data is being stored correctly
+  - Use browser refresh if needed
+
+## 🔍 Debugging Tips
+
+### Enable Debug Logging
+- **Method**: Set `LOG_LEVEL = "DEBUG"` in [scripts/config.py](mdc:scripts/config.py)
+- **Location**: Check logs in `logs/` directory
+- **Benefits**: Detailed error traces and execution flow
+
+### Check Session State
+- **Method**: Add `st.write(st.session_state)` temporarily
+- **Purpose**: Verify data storage and retrieval
+- **Cleanup**: Remove debug statements before production
+
+### Validate Data
+- **Method**: Use `df.info()`, `df.describe()` to check data quality
+- **Purpose**: Ensure data is properly formatted and complete
+- **Location**: Add checks in data processing functions
+
+### Test Components Individually
+- **Method**: Test each pipeline component separately
+- **Files**: Run individual scripts in `scripts/` directory
+- **Benefits**: Isolate issues to specific components
+
+## 📋 Maintenance Checklist
+
+### Regular Maintenance
+- [ ] Update dependencies: `pip install -r requirements.txt --upgrade`
+- [ ] Clear old logs: Clean `logs/` directory periodically
+- [ ] Check API quotas: Monitor Yahoo Finance and OpenAI usage
+- [ ] Validate data quality: Ensure indicators calculating correctly
+
+### Before Deployment
+- [ ] Test all dashboard tabs
+- [ ] Verify AI analysis with valid API key
+- [ ] Check PDF generation functionality
+- [ ] Validate export features
+- [ ] Test with multiple stock selections

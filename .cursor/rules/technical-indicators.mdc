@@ -1,0 +1,138 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Technical Analysis & Indicators Guide
+
+## 📈 Technical Analysis System
+The technical analysis system provides 15+ technical indicators for comprehensive stock analysis.
+
+## 🔧 Core Processing Module
+- **File**: [scripts/data_processor.py](mdc:scripts/data_processor.py)
+- **Class**: `DataProcessor`
+- **Main Method**: `calculate_technical_indicators(df)`
+
+## 📊 Available Technical Indicators
+
+### Moving Averages
+- **Simple Moving Average (SMA)**: 20-day and 50-day periods
+- **Exponential Moving Average (EMA)**: 12-day and 26-day periods
+- **Usage**: Trend identification and support/resistance levels
+
+### Momentum Indicators
+- **RSI (Relative Strength Index)**: 14-day period
+  - Overbought: > 70
+  - Oversold: < 30
+  - Neutral: 30-70 range
+- **MACD (Moving Average Convergence Divergence)**:
+  - MACD Line: 12-day EMA - 26-day EMA
+  - Signal Line: 9-day EMA of MACD
+  - Histogram: MACD - Signal
+
+### Volatility Indicators
+- **Bollinger Bands**: 20-day SMA with 2 standard deviations
+  - Upper Band: SMA + (2 × Standard Deviation)
+  - Lower Band: SMA - (2 × Standard Deviation)
+  - Middle Band: 20-day SMA
+
+### Volume Indicators
+- **Volume Analysis**: Daily trading volume
+- **Volume Moving Average**: 20-day volume average
+- **Volume Ratio**: Current volume vs. average volume
+
+### Price Action Indicators
+- **Daily Returns**: Percentage change from previous day
+- **Volatility**: Rolling standard deviation of returns
+- **Price Channels**: High/low ranges over specified periods
+
+## 📈 Chart Visualization
+
+### Advanced Price Chart Function
+- **Function**: `create_advanced_price_chart()` in [dashboard.py](mdc:dashboard.py)
+- **Components**:
+  - Candlestick chart with OHLC data
+  - Moving averages overlay
+  - Bollinger Bands with fill area
+  - Volume bars with color coding
+  - RSI subplot with overbought/oversold levels
+  - MACD subplot with histogram
+
+### Chart Features
+- **Interactive**: Plotly-based with zoom, pan, hover
+- **Multi-timeframe**: Supports 1mo to max periods
+- **Color Coding**: Green/red for bullish/bearish signals
+- **Responsive**: Adapts to container width
+
+## 🔍 Signal Generation
+
+### Trend Signals
+- **Golden Cross**: 50-day SMA crosses above 200-day SMA (bullish)
+- **Death Cross**: 50-day SMA crosses below 200-day SMA (bearish)
+- **EMA Crossover**: 12-day EMA crosses 26-day EMA
+
+### Momentum Signals
+- **RSI Divergence**: Price vs. RSI trend differences
+- **MACD Crossover**: MACD line crosses signal line
+- **Bollinger Band Squeeze**: Low volatility periods
+
+### Volume Signals
+- **Volume Breakout**: Volume significantly above average
+- **Volume Confirmation**: Price moves confirmed by volume
+
+## 📊 Statistical Analysis
+
+### Summary Statistics Function
+- **Function**: `generate_summary_statistics()` in [scripts/data_processor.py](mdc:scripts/data_processor.py)
+- **Metrics**:
+  - Current price and daily change
+  - 7-day, 30-day price changes
+  - Volatility (annualized)
+  - Sharpe ratio
+  - Maximum drawdown
+  - Current RSI value
+
+### Risk Metrics
+- **Value at Risk (VaR)**: 95% and 99% confidence levels
+- **Maximum Drawdown**: Largest peak-to-trough decline
+- **Beta**: Correlation with market (if benchmark provided)
+- **Volatility**: Annualized standard deviation
+
+## 🎯 Dashboard Integration
+
+### Technical Analysis Tab
+- **Location**: Tab 1 in [dashboard.py](mdc:dashboard.py)
+- **Features**:
+  - Real-time price metrics
+  - Interactive technical charts
+  - Key indicator values
+  - Signal interpretation
+
+### Data Caching
+- **Function**: `get_comprehensive_stock_data()` with `@st.cache_data`
+- **TTL**: 300 seconds (5 minutes)
+- **Benefits**: Faster loading, reduced API calls
+
+## 🔄 Data Processing Pipeline
+
+### Step 1: Data Acquisition
+- **Source**: Yahoo Finance via [scripts/api_client.py](mdc:scripts/api_client.py)
+- **Method**: `get_daily_prices(symbol, period)`
+
+### Step 2: Data Cleaning
+- **Method**: `clean_stock_data(df)` in [scripts/data_processor.py](mdc:scripts/data_processor.py)
+- **Operations**: Handle missing values, validate data types
+
+### Step 3: Technical Indicators
+- **Method**: `calculate_technical_indicators(df)`
+- **Output**: Enhanced DataFrame with all indicators
+
+### Step 4: Statistics Generation
+- **Method**: `generate_summary_statistics(df, symbol)`
+- **Output**: Dictionary with key metrics and signals
+
+## 💡 Best Practices
+- **Data Validation**: Always check for sufficient data points
+- **Period Selection**: Ensure adequate history for indicators
+- **Signal Confirmation**: Use multiple indicators for validation
+- **Risk Management**: Consider volatility and drawdown metrics

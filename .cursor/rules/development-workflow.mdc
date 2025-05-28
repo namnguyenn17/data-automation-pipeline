@@ -1,0 +1,188 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Development Workflow & Setup
+
+## 🚀 Quick Start Guide
+
+### Environment Setup
+1. **Clone Repository**: `git clone <repository-url>`
+2. **Virtual Environment**: `python -m venv .venv && source .venv/bin/activate`
+3. **Install Dependencies**: `pip install -r requirements.txt`
+4. **Environment Variables**: Copy `.env.example` to `.env` and configure
+5. **Run Dashboard**: `streamlit run dashboard.py`
+
+### Required Environment Variables
+- `OPENAI_API_KEY`: For AI analysis functionality
+- `LOG_LEVEL`: Set to DEBUG, INFO, WARNING, or ERROR
+- `DATA_DIR`: Custom data directory (optional)
+
+## 📁 Project Structure & Conventions
+
+### Core Modules
+- **Configuration**: [scripts/config.py](mdc:scripts/config.py) - Central config management
+- **Data Layer**: [scripts/api_client.py](mdc:scripts/api_client.py) - External API integration
+- **Processing**: [scripts/data_processor.py](mdc:scripts/data_processor.py) - Data transformation
+- **AI Layer**: [scripts/ai_analyzer.py](mdc:scripts/ai_analyzer.py) - AI-powered analysis
+- **Reporting**: [scripts/report_generator.py](mdc:scripts/report_generator.py) - Export functionality
+- **Frontend**: [dashboard.py](mdc:dashboard.py) - Streamlit interface
+
+### Directory Structure
+```
+data-automation-pipeline/
+├── scripts/           # Core pipeline modules
+├── data/             # Data storage
+│   ├── raw/          # Raw API data
+│   └── processed/    # Processed data
+├── reports/          # Generated reports
+├── logs/             # Application logs
+├── templates/        # Report templates
+└── tests/            # Unit tests
+```
+
+## 🔄 Development Workflow
+
+### Adding New Features
+
+#### 1. Technical Indicators
+- **File**: [scripts/data_processor.py](mdc:scripts/data_processor.py)
+- **Method**: Add to `calculate_technical_indicators()`
+- **Testing**: Verify in Technical Analysis tab
+- **Documentation**: Update indicator list in dashboard
+
+#### 2. AI Analysis Features
+- **File**: [scripts/ai_analyzer.py](mdc:scripts/ai_analyzer.py)
+- **Methods**: Extend `analyze_stock_longterm()` or `compare_stocks_ai()`
+- **Integration**: Update AI Analysis tab in [dashboard.py](mdc:dashboard.py)
+- **Cost**: Monitor token usage and API costs
+
+#### 3. Dashboard Components
+- **File**: [dashboard.py](mdc:dashboard.py)
+- **Structure**: Add new tabs or expand existing ones
+- **State**: Use `st.session_state` for data persistence
+- **Caching**: Apply `@st.cache_data` for expensive operations
+
+#### 4. Export Formats
+- **File**: [scripts/report_generator.py](mdc:scripts/report_generator.py)
+- **Integration**: Add to Data Export tab
+- **Testing**: Verify file generation and download
+
+### Code Quality Standards
+
+#### Python Style
+- **PEP 8**: Follow Python style guidelines
+- **Type Hints**: Use type annotations where possible
+- **Docstrings**: Document all classes and functions
+- **Error Handling**: Implement comprehensive try-catch blocks
+
+#### Streamlit Best Practices
+- **Caching**: Use `@st.cache_data` for data loading functions
+- **Session State**: Manage state properly for multi-tab apps
+- **Performance**: Minimize recomputation with proper caching
+- **UI/UX**: Provide clear feedback and error messages
+
+#### Logging Standards
+- **Logger**: Use the configured logger from [scripts/config.py](mdc:scripts/config.py)
+- **Levels**: DEBUG for development, INFO for production
+- **Format**: Include timestamps, levels, and context
+- **Location**: Check logs in `logs/` directory
+
+## 🧪 Testing Strategy
+
+### Manual Testing Checklist
+- [ ] **Dashboard Loads**: All tabs display without errors
+- [ ] **Data Loading**: Stock data loads for various symbols
+- [ ] **Technical Analysis**: Charts display with indicators
+- [ ] **Financial Analysis**: Financial statements load correctly
+- [ ] **Peer Comparison**: Works with 2+ stocks
+- [ ] **Risk Analysis**: Calculates metrics independently
+- [ ] **AI Analysis**: Generates recommendations (with API key)
+- [ ] **Data Export**: All formats download successfully
+
+### Component Testing
+- **API Client**: Test with various symbols and periods
+- **Data Processor**: Verify indicator calculations
+- **AI Analyzer**: Test with mock data if no API key
+- **Report Generator**: Validate PDF/Excel generation
+
+### Error Scenarios
+- **Invalid Symbols**: Test with non-existent stock symbols
+- **Network Issues**: Test offline behavior
+- **Missing API Key**: Verify graceful degradation
+- **Empty Data**: Handle cases with insufficient data
+
+## 🔧 Debugging & Troubleshooting
+
+### Common Development Issues
+
+#### Import Errors
+- **Check**: Virtual environment activation
+- **Solution**: `pip install -r requirements.txt`
+- **Verify**: All dependencies in [requirements.txt](mdc:requirements.txt)
+
+#### Streamlit Errors
+- **Cache Issues**: Clear with `st.cache_data.clear()`
+- **Session State**: Check variable initialization
+- **Widget Keys**: Ensure unique keys for dynamic widgets
+
+#### Data Issues
+- **API Limits**: Monitor Yahoo Finance rate limits
+- **Data Quality**: Validate DataFrames before processing
+- **Missing Values**: Handle NaN values appropriately
+
+### Performance Optimization
+
+#### Dashboard Performance
+- **Caching**: Cache expensive data operations
+- **Lazy Loading**: Load data only when needed
+- **Pagination**: Limit data display for large datasets
+- **Async**: Consider async operations for multiple stocks
+
+#### Memory Management
+- **Data Cleanup**: Clear unused DataFrames
+- **Session State**: Limit stored data size
+- **Garbage Collection**: Monitor memory usage
+
+## 📦 Deployment Considerations
+
+### Production Setup
+- **Environment**: Use production environment variables
+- **Logging**: Set appropriate log levels
+- **Security**: Secure API keys and sensitive data
+- **Monitoring**: Implement health checks
+
+### Scaling Considerations
+- **Caching**: Implement Redis for shared caching
+- **Database**: Consider database for data persistence
+- **API Limits**: Implement rate limiting and queuing
+- **Load Balancing**: For multiple users
+
+## 🔄 Version Control
+
+### Git Workflow
+- **Branches**: Use feature branches for new development
+- **Commits**: Make atomic commits with clear messages
+- **Pull Requests**: Review code before merging
+- **Tags**: Tag releases for version tracking
+
+### File Management
+- **Ignore**: Keep `.gitignore` updated
+- **Secrets**: Never commit API keys or sensitive data
+- **Data**: Exclude large data files from version control
+- **Logs**: Don't commit log files
+
+## 📚 Documentation
+
+### Code Documentation
+- **Inline Comments**: Explain complex logic
+- **Function Docs**: Document parameters and return values
+- **Class Docs**: Explain purpose and usage
+- **README**: Keep [README.md](mdc:README.md) updated
+
+### User Documentation
+- **Setup Guide**: Clear installation instructions
+- **Usage Guide**: How to use each feature
+- **Troubleshooting**: Common issues and solutions
+- **API Reference**: Document configuration options

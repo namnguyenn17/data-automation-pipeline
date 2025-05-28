@@ -1,0 +1,116 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# AI Analysis System Guide
+
+## 🤖 AI Analysis Overview
+The AI analysis system provides long-term investment recommendations (6+ months horizon) using OpenAI GPT-4.
+
+## 📁 Core AI Components
+
+### Main AI Analyzer
+- **File**: [scripts/ai_analyzer.py](mdc:scripts/ai_analyzer.py)
+- **Class**: `AIStockAnalyzer`
+- **Purpose**: Generates investment recommendations and comparative analysis
+
+### Key Methods
+
+#### Individual Stock Analysis
+- **Method**: `analyze_stock_longterm(symbol, df, stats, financials)`
+- **Returns**: BUY/HOLD/SELL recommendation with confidence level
+- **Output**: Investment thesis, price targets, risk factors, catalysts
+
+#### Comparative Analysis
+- **Method**: `compare_stocks_ai(symbols, comparison_data)`
+- **Returns**: Rankings, portfolio allocations, comparative strengths
+- **Output**: Recommendations for conservative/moderate/aggressive investors
+
+## 🔧 Configuration & Setup
+
+### API Key Configuration
+- **File**: [scripts/config.py](mdc:scripts/config.py)
+- **Environment Variable**: `OPENAI_API_KEY`
+- **Validation**: `is_available()` method checks for valid API key
+
+### Model Configuration
+- **Default Model**: GPT-4
+- **Token Usage**: ~1,000-1,500 tokens per analysis
+- **Cost**: ~$0.03-0.05 per analysis
+
+## 📊 Analysis Components
+
+### Individual Stock Analysis Output
+```python
+{
+    'recommendation': 'BUY'|'HOLD'|'SELL',
+    'confidence_level': 'HIGH'|'MEDIUM'|'LOW',
+    'price_target_range': {'low': float, 'high': float},
+    'investment_thesis': str,
+    'key_strengths': [str],
+    'key_risks': [str],
+    'technical_outlook': str,
+    'fundamental_outlook': str,
+    'sector_considerations': str,
+    'risk_factors': str,
+    'catalysts': str,
+    'target_timeframe': str
+}
+```
+
+### Comparative Analysis Output
+```python
+{
+    'ranking': [{'rank': int, 'symbol': str, 'score': float, 'recommendation': str}],
+    'portfolio_allocation': {
+        'conservative_investor': {symbol: percentage},
+        'moderate_investor': {symbol: percentage},
+        'aggressive_investor': {symbol: percentage}
+    },
+    'comparative_strengths': {
+        'growth_potential': str,
+        'financial_stability': str,
+        'valuation': str,
+        'risk_profile': str
+    },
+    'key_insights': [str],
+    'risk_considerations': str
+}
+```
+
+## 📄 PDF Report Generation
+
+### Individual Analysis PDFs
+- **Function**: `generate_ai_analysis_pdf()` in [dashboard.py](mdc:dashboard.py)
+- **Features**: Executive summary, detailed analysis sections, disclaimers
+- **Styling**: Custom ReportLab styles with color-coded recommendations
+
+### Comparative Analysis PDFs
+- **Function**: `generate_comparative_analysis_pdf()` in [dashboard.py](mdc:dashboard.py)
+- **Features**: Rankings table, portfolio allocations, comparative insights
+- **Format**: Professional layout with tables and structured sections
+
+## 🎯 Dashboard Integration
+
+### UI Components (Tab 5 in Dashboard)
+- **Individual Analysis**: Button-triggered analysis with expandable results
+- **Comparative Analysis**: Multi-stock comparison with portfolio recommendations
+- **PDF Downloads**: One-click PDF generation and download
+
+### Session State Management
+- **Storage**: `st.session_state.ai_analysis`
+- **Persistence**: Analysis results cached until new analysis requested
+- **Structure**: Separate storage for individual and comparative analyses
+
+## ⚠️ Error Handling & Validation
+- **API Key Validation**: Checks for valid OpenAI API key before analysis
+- **Data Validation**: Ensures required data (price, financial) is available
+- **Error Messages**: User-friendly error messages for common issues
+- **Fallback**: Graceful degradation when AI analysis unavailable
+
+## 💡 Best Practices
+- **Cost Control**: Button-based approach prevents accidental API calls
+- **Data Preparation**: Ensures all required data loaded before AI analysis
+- **User Guidance**: Clear instructions for API key setup
+- **Disclaimers**: Proper investment disclaimers on all AI outputs
